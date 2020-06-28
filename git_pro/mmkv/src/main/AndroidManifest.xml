@@ -1,5 +1,0 @@
-<manifest package="com.mmkv"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <application android:name="com.mmkv.MMKVApp" />
-</manifest>

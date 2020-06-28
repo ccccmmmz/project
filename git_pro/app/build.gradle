@@ -4,6 +4,7 @@
 import com.hi.dhl.plugin.Deps
 import com.hi.dhl.plugin.VersionBuildConfig
 import com.hi.dhl.plugin.androidx
+import com.hi.dhl.plugin.lib
 plugins{
     // 这个 id 就是在 versionPlugin 文件夹下 build.gradle 文件内定义的 id
     id "com.hi.dhl.plugin"
@@ -12,20 +13,30 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion VersionBuildConfig.compileSdkVersion
+    compileSdkVersion 29
     defaultConfig {
         multiDexEnabled true
         applicationId "com.test.commonporject"
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion 17
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    android {
+        lintOptions {
+            abortOnError false
+        }
+
+        testOptions {
+            unitTests.includeAndroidResources true
+        }
+    }
     dataBinding {
         enabled = true
     }
+
     //Error: Invoke-customs are only supported starting with Android O (--min-api 26)
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -37,6 +48,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '29.0.3'
 }
 
 dependencies {
@@ -45,12 +57,63 @@ dependencies {
 
     implementation androidx.constraintlayout
     implementation androidx.multidex
+    implementation lib.mmkv
 
-    implementation project(':common')
-    implementation project(':mmkv')
-    implementation project(':httpclient')
-    implementation project(':mvvm_arc')
-    implementation project(':kotlinmodule')
+    implementation androidx.recyclerview
+    implementation androidx.viewdatabind
+
+
+    implementation androidx.support_v4
+//    //rxjava
+    implementation lib.rxjava
+    //rx管理View的生命周期
+    implementation(lib.rxlifecycle) {
+        exclude group: 'com.android.support'
+    }
+    implementation(lib.rxlifecycle_components) {
+        exclude group: 'com.android.support'
+    }
+    //rxbinding
+    implementation(lib.rxandroid) {
+        exclude group: 'com.android.support'
+    }
+    //rx权限请求
+//    api(rootProject.ext.dependencies.rxpermissions) {
+//        exclude group: 'com.android.support'
+//    }
+    //network
+    implementation lib.okhttp
+    implementation lib.retrofit
+    implementation lib.converter_gson
+    implementation lib.adapter_rxjava
+    //json解析
+    implementation lib.gson
+    //material-dialogs
+    implementation(lib.material_dialogs_core) {
+        exclude group: 'com.android.support'
+    }
+    implementation(lib.material_dialogs_commons) {
+        exclude group: 'com.android.support'
+    }
+    //glide图片加载库
+    implementation (lib.glide){
+        exclude group: 'com.android.support'
+    }
+    annotationProcessor lib.glide_compiler
+    //recyclerview的databinding套装
+    implementation(lib.bindingcollectionadapter) {
+        exclude group: 'com.android.support'
+    }
+    implementation(lib.bindingcollectionadapter_recyclerview) {
+        exclude group: 'com.android.support'
+    }
+    //Google LiveData和ViewModel组件
+    implementation androidx.lifecycle_extensions
+    annotationProcessor androidx.lifecycle_compiler
+//    implementation project(':common')
+//    implementation project(':mmkv')
+//    implementation project(':httpclient')
+//    implementation project(':kotlinmodule')
 }
 
 

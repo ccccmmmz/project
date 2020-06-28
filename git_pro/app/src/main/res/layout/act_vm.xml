@@ -43,6 +43,6 @@
 
         <variable
             name="clickEvent"
-            type="com.example.common.mvvm_component.ClickProxy" />
+            type="project.common.mvvm_component.ClickProxy" />
     </data>
 </layout>

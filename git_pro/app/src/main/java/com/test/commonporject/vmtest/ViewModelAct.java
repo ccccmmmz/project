@@ -8,19 +8,20 @@ import androidx.annotation.Nullable;
 import androidx.databinding.Observable;
 import androidx.lifecycle.Observer;
 
-import com.example.common.mvvm_component.BaseVmActivity;
-import com.example.common.mvvm_component.ClickProxy;
-import com.example.common.mvvm_component.DataBindingConfig;
+
 import com.test.commonporject.BR;
 import com.test.commonporject.R;
 import com.test.commonporject.test.ApiService;
 import com.test.commonporject.test.InfoBean;
 
-import http.ApiDisposableObserver;
-import http.BaseResponse;
-import http.ResponseThrowable;
-import util.ApiKit;
-import util.Utils;
+import project.common.http.http.ApiDisposableObserver;
+import project.common.http.http.BaseResponse;
+import project.common.http.http.ResponseThrowable;
+import project.common.http.util.ApiKit;
+import project.common.http.util.Utils;
+import project.common.mvvm_component.BaseVmActivity;
+import project.common.mvvm_component.ClickProxy;
+import project.common.mvvm_component.DataBindingConfig;
 
 
 public class ViewModelAct extends BaseVmActivity<TestViewModel> {

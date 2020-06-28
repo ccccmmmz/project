@@ -6,10 +6,10 @@ import androidx.databinding.ViewDataBinding;
 
 import android.os.Bundle;
 
-import com.example.common.mvvm_component.BaseVmActivity;
-import com.example.common.mvvm_component.DataBindingConfig;
 import com.test.commonporject.R;
-import com.test.commonporject.databinding.ActivityInputBinding;
+
+import project.common.mvvm_component.BaseVmActivity;
+import project.common.mvvm_component.DataBindingConfig;
 
 public class InputAct extends BaseVmActivity<TestViewModel> {
 

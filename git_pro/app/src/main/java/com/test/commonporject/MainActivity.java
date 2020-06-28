@@ -13,16 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.common.DbUtils.BaseDaoImpl;
+
 import com.example.common.permission.PermissionUtils;
-import com.example.common.test.OrderBean;
-import com.example.kotlinmodule.KTMainActivity;
-import com.mmkv.MMKVGetter;
+
+import com.test.commonporject.test.ApiService;
 import com.test.commonporject.vmtest.ViewModelAct;
 
 import java.util.List;
 
-import util.Utils;
+import project.common.DbUtils.BaseDaoImpl;
+import project.common.http.http.ApiDisposableObserver;
+import project.common.http.http.ResponseThrowable;
+import project.common.http.util.ApiKit;
+import project.common.http.util.Utils;
+import project.common.mmkv.MMKVGetter;
+import project.common.test.OrderBean;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,61 +56,18 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void toggleHideyBar() {
-
-        // BEGIN_INCLUDE (get_current_ui_flags)
-        // The UI options currently enabled are represented by a bitfield.
-        // getSystemUiVisibility() gives us that bitfield.
-        int uiOptions = getWindow().getDecorView().getSystemUiVisibility();
-        int newUiOptions = uiOptions;
-        // END_INCLUDE (get_current_ui_flags)
-        // BEGIN_INCLUDE (toggle_ui_flags)
-        boolean isImmersiveModeEnabled =
-                ((uiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) == uiOptions);
-        if (isImmersiveModeEnabled) {
-            Log.i(TAG, "Turning immersive mode mode off. ");
-        } else {
-            Log.i(TAG, "Turning immersive mode mode on.");
-        }
-
-        // Navigation bar hiding:  Backwards compatible to ICS.
-        if (Build.VERSION.SDK_INT >= 14) {
-            newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        }
-
-        // Status bar hiding: Backwards compatible to Jellybean
-        if (Build.VERSION.SDK_INT >= 16) {
-            newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
-        }
-
-        // Immersive mode: Backward compatible to KitKat.
-        // Note that this flag doesn't do anything by itself, it only augments the behavior
-        // of HIDE_NAVIGATION and FLAG_FULLSCREEN.  For the purposes of this sample
-        // all three flags are being toggled together.
-        // Note that there are two immersive mode UI flags, one of which is referred to as "sticky".
-        // Sticky immersive mode differs in that it makes the navigation and status bars
-        // semi-transparent, and the UI flag does not get cleared when the user interacts with
-        // the screen.
-        if (Build.VERSION.SDK_INT >= 18) {
-            newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        }
-
-        getWindow().getDecorView().setSystemUiVisibility(newUiOptions);
-        //END_INCLUDE (set_ui_flags)
-    }
-
     public void testHttp() {
-        //ApiKit.execute(ApiKit.getInstance().create(ApiService.class).test(), new ApiDisposableObserver<Object>() {
-        //    @Override
-        //    public void onResult(Object o) {
-        //        System.out.println(o);
-        //    }
-        //
-        //    @Override
-        //    public void onError(ResponseThrowable responseThrowable) {
-        //
-        //    }
-        //});
+        ApiKit.execute(ApiKit.getInstance().create(ApiService.class).test1(), new ApiDisposableObserver<Object>() {
+            @Override
+            public void onResult(Object o) {
+                System.out.println(o);
+            }
+
+            @Override
+            public void onError(ResponseThrowable responseThrowable) {
+
+            }
+        });
     }
     public void insert(View view) {
         for (int i = 0; i < 100; i++) {

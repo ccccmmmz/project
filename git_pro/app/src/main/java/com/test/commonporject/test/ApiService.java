@@ -2,9 +2,10 @@ package com.test.commonporject.test;
 
 import androidx.lifecycle.LiveData;
 
-import http.BaseResponse;
 import io.reactivex.Observable;
+import project.common.http.http.BaseResponse;
 import retrofit2.http.GET;
+
 
 public interface ApiService {
 

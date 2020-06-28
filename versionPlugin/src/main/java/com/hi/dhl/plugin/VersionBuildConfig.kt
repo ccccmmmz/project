@@ -2,7 +2,7 @@ package com.hi.dhl.plugin
 
 object VersionBuildConfig {
     var KOTLIN_VERSION = "1.3.71"
-    var compileSdkVersion = 29
+    var compileSdkVersion = 28
 }
 
 object androidx {

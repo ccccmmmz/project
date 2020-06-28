@@ -1,8 +1,4 @@
 rootProject.name = "git pro"
 includeBuild '../versionPlugin'
 
-include ':app',':common'
-include ':mmkv'
-include ':httpclient'
-include ':mvvm_arc'
-include ':kotlinmodule'
+include ':app'
