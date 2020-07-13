@@ -33,10 +33,16 @@ android {
             unitTests.includeAndroidResources true
         }
     }
-    dataBinding {
-        enabled = true
-    }
+//    dataBinding {
+//        enabled = true
+//    }
 
+    //4.0 databind
+    buildFeatures{
+        dataBinding = true
+        // for view binding :
+        // viewBinding = true
+    }
     //Error: Invoke-customs are only supported starting with Android O (--min-api 26)
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
