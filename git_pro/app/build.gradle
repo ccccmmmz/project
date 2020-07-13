@@ -32,6 +32,22 @@ android {
         testOptions {
             unitTests.includeAndroidResources true
         }
+
+//        Entry name * collided 这是 gradle 升级到高版本以后的 包的错误
+        packagingOptions {
+//            exclude 'resources.arsc'
+            exclude '**.**'
+
+//            exclude 'res/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_0.xml'
+//            exclude 'res/color/switch_thumb_material_dark.xml'
+//            exclude 'res/drawable/btn_radio_on_to_off_mtrl_animation.xml'
+//            exclude 'res/anim/btn_checkbox_to_checked_icon_null_animation.xml'
+//            exclude 'res/drawable/btn_radio_on_mtrl.xml'
+//            exclude 'res/anim/btn_radio_to_on_mtrl_ring_outer_animation.xml'
+//            exclude 'res/anim/btn_checkbox_to_unchecked_check_path_merged_animation.xml'
+//            exclude 'res/layout/notification_template_part_chronometer.xml'
+//            exclude 'res/interpolator/btn_radio_to_off_mtrl_animation_interpolator_0'
+        }
     }
 //    dataBinding {
 //        enabled = true
@@ -52,6 +68,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
     buildToolsVersion '29.0.3'
@@ -116,6 +138,8 @@ dependencies {
     //Google LiveData和ViewModel组件
     implementation androidx.lifecycle_extensions
     annotationProcessor androidx.lifecycle_compiler
+
+    implementation 'com.getkeepsafe.relinker:relinker:1.4.1'
 //    implementation project(':common')
 //    implementation project(':mmkv')
 //    implementation project(':httpclient')

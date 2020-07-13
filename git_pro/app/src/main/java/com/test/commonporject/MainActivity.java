@@ -2,20 +2,16 @@ package com.test.commonporject;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-
 import com.example.common.permission.PermissionUtils;
-
 import com.test.commonporject.test.ApiService;
 import com.test.commonporject.vmtest.ViewModelAct;
 
@@ -26,7 +22,6 @@ import project.common.http.http.ApiDisposableObserver;
 import project.common.http.http.ResponseThrowable;
 import project.common.http.util.ApiKit;
 import project.common.http.util.Utils;
-import project.common.mmkv.MMKVGetter;
 import project.common.test.OrderBean;
 
 public class MainActivity extends AppCompatActivity {
@@ -124,11 +119,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testMMKVStorage(View view) {
-        MMKVGetter.MMKV_IMPL().setString("key", "test");
+        //MMKVGetter.MMKV_IMPL().setString("key", "test");
     }
 
     public void getMMKVStorage(View view) {
-        ((TextView) view).setText(MMKVGetter.MMKV_IMPL().getString("key", ""));
+        //((TextView) view).setText(MMKVGetter.MMKV_IMPL().getString("key", ""));
     }
 
     public void turnToKt(View view) {

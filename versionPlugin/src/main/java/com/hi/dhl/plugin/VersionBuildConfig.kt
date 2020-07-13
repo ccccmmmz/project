@@ -23,7 +23,7 @@ object androidx {
 object lib{
 
 
-    var mmkv = "com.tencent:mmkv-static:1.1.1"
+    var mmkv = "com.tencent:mmkv-static:1.2.1"
     var rxjava = "io.reactivex.rxjava2:rxjava:2.2.3"
     var rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.0";
     var rxlifecycle = "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
