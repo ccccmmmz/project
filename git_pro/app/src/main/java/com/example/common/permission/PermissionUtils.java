@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Binder;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
@@ -305,47 +304,58 @@ public class PermissionUtils {
     }
 
 
-    /**
-     * 判断 悬浮窗口权限是否打开
-     * 19之后开放 19之前默认返回true
-     *
-     * @return true 允许 false禁止
-     */
-    @SuppressWarnings("unchecked")
-    public static boolean getAppOps(Context context) {
+    @SuppressWarnings("all")
+    public static boolean canBackgroundStart(Context context) {
+        AppOpsManager ops = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            ops = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+        }
         try {
-            Object object;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                object = context.getSystemService(Context.APP_OPS_SERVICE);
-            } else {
-                Log.e("ligen", "getAppOps: below 19");
-                return true;
-            }
-            if (object == null) {
-                Log.e("ligen", "getAppOps: object is null");
-                return true;
-            }
-            Class localClass = object.getClass();
-            Class[] arrayOfClass = new Class[3];
-            arrayOfClass[0] = Integer.TYPE;
-            arrayOfClass[1] = Integer.TYPE;
-            arrayOfClass[2] = String.class;
-            Method method = localClass.getMethod("checkOp", arrayOfClass);
-            if (method == null) {
-                Log.e("ligen", "getAppOps: getMethod is null");
-                return true;
-            }
-            Object[] arrayOfObject1 = new Object[3];
-            arrayOfObject1[0] = 24;
-            arrayOfObject1[1] = Binder.getCallingUid();
-            arrayOfObject1[2] = context.getPackageName();
-            int m = (Integer) method.invoke(object, arrayOfObject1);
-            return m == AppOpsManager.MODE_ALLOWED;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Log.e("ligen", "getAppOps: exception" + ex.getMessage());
+            int op = 10021; // >= 23
+            // ops.checkOpNoThrow(op, uid, packageName)
+            Method method = ops.getClass().getMethod("checkOpNoThrow",
+                    int.class, int.class, String.class);
+            Integer result = (Integer) method.invoke(ops, op, android.os.Process.myUid(), context.getPackageName());
+            return result == AppOpsManager.MODE_ALLOWED;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
+    }
+
+    public static void miuiPermission(Context context) {
+
+        try {
+            // MIUI 8
+            Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+            localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+            localIntent.putExtra("extra_pkgname", context.getPackageName());
+            context.startActivity(localIntent);
+            Log.i("ligen", "miuiPermission: miui 8 + ");
+        } catch (Exception e) {
+            try {
+                // MIUI 5/6/7
+                Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                localIntent.putExtra("extra_pkgname", context.getPackageName());
+                context.startActivity(localIntent);
+                Log.i("ligen", "miuiPermission: miui 5-7 ");
+            } catch (Exception e1) {
+                // 否则跳转到应用详情
+                Log.i("ligen", "miuiPermission: miui 都匹配不到 ");
+                startAppSettings(context);
+            }
+        }
+        //Intent intent = new Intent();
+        //try {
+        //    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //    ComponentName componentName = null;
+        //    componentName = new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity");
+        //    intent.setComponent(componentName);
+        //    context.startActivity(intent);
+        //} catch (Exception e) {//抛出异常就直接打开设置页面
+        //    Log.i("ligen", "miuiPermission: " + e.getLocalizedMessage());
+        //}
     }
 
     //回调

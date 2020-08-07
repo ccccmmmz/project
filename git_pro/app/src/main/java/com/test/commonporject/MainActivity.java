@@ -95,7 +95,13 @@ public class MainActivity extends AppCompatActivity {
 
     //app信息
     public void appInfo(View view) {
-        PermissionUtils.startAppSettings(this);
+        //PermissionUtils.startAppSettings(this);
+        boolean backgroundStart = PermissionUtils.canBackgroundStart(this);
+        if (!backgroundStart) {
+            PermissionUtils.miuiPermission(this);
+        } else {
+            Log.i("ligen", "appInfo: 允许后台启动");
+        }
     }
 
     public void testPermission(View view) {
