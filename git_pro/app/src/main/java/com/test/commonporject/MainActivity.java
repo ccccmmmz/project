@@ -20,6 +20,7 @@ import com.test.commonporject.vmtest.ViewModelAct;
 import java.util.List;
 
 import project.common.DbUtils.BaseDaoImpl;
+import project.common.hook.HookManger;
 import project.common.http.http.ApiDisposableObserver;
 import project.common.http.http.ResponseThrowable;
 import project.common.http.util.ApiKit;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         test();
 
         MMKV.initialize(this);
+        HookManger.getInstance().hookStartActivity();
     }
 
     private void test() {
