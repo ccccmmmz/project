@@ -94,4 +94,11 @@ public class HookManger {
         }
 
     }
+
+    private void dispatchStartActMethod(Method method) {
+        switch (method.getName()) {
+            case "startActivity":
+                break;
+        }
+    }
 }
