@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.multidex.MultiDex;
 
+import project.common.hook.HookManger;
+
 public class Application extends android.app.Application {
     @Override
     public void onCreate() {
@@ -23,5 +25,7 @@ public class Application extends android.app.Application {
         //MMKV.initialize(dir, s -> ReLinker.loadLibrary(Application.this, s));
 
         //MMKV.initialize(this);
+
+        HookManger.getInstance().hookInstrumentation();
     }
 }

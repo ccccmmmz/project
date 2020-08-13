@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void turnToKt(View view) {
-        Intent intent = new Intent(MainActivity.this, ViewModelAct.class);
+        Intent intent = new Intent(null, ViewModelAct.class);
         startActivity(intent);
     }
 }
