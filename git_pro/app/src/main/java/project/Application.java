@@ -7,6 +7,13 @@ import androidx.multidex.MultiDex;
 import project.common.hook.HookManger;
 
 public class Application extends android.app.Application {
+
+    private static Application sApplication;
+
+    public static Application getApplication() {
+        return sApplication;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -25,7 +32,7 @@ public class Application extends android.app.Application {
         //MMKV.initialize(dir, s -> ReLinker.loadLibrary(Application.this, s));
 
         //MMKV.initialize(this);
-
+        sApplication = this;
         HookManger.getInstance().hookInstrumentation();
     }
 }

@@ -1,10 +1,14 @@
 package com.test.commonporject;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +30,7 @@ import project.common.http.http.ResponseThrowable;
 import project.common.http.util.ApiKit;
 import project.common.http.util.Utils;
 import project.common.mmkv.MMKVGetter;
+import project.common.system.FloatManage;
 import project.common.test.OrderBean;
 
 public class MainActivity extends AppCompatActivity {
@@ -103,12 +108,22 @@ public class MainActivity extends AppCompatActivity {
     //app信息
     public void appInfo(View view) {
         //PermissionUtils.startAppSettings(this);
-        boolean backgroundStart = PermissionUtils.canBackgroundStart(this);
-        if (!backgroundStart) {
-            PermissionUtils.miuiPermission(this);
-        } else {
-            Log.i("ligen", "appInfo: 允许后台启动");
-        }
+        FloatManage.addNoNeedFloat(MainActivity.this);
+        Dialog dialog = new Dialog(this);
+        Button button = new Button(this);
+        button.setText("挡住你");
+        dialog.setContentView(button);
+        Window window = dialog.getWindow();
+        window.setDimAmount(0);
+        window.setGravity(Gravity.TOP | Gravity.LEFT);
+        dialog.show();
+
+        //boolean backgroundStart = PermissionUtils.canBackgroundStart(this);
+        //if (!backgroundStart) {
+        //    PermissionUtils.miuiPermission(this);
+        //} else {
+        //    Log.i("ligen", "appInfo: 允许后台启动");
+        //}
     }
 
     public void testPermission(View view) {
@@ -140,7 +155,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void turnToKt(View view) {
-        Intent intent = new Intent(null, ViewModelAct.class);
+        Intent intent = new Intent(this, ViewModelAct.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
     }
 }
