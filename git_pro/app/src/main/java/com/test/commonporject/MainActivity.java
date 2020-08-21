@@ -1,9 +1,9 @@
 package com.test.commonporject;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -21,6 +22,7 @@ import com.tencent.mmkv.MMKV;
 import com.test.commonporject.test.ApiService;
 import com.test.commonporject.vmtest.ViewModelAct;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import project.common.DbUtils.BaseDaoImpl;
@@ -99,10 +101,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void update(View view) {
-//        UserBean update = new UserBean(3, "修改的");
-//        dao.update(update);
-        OrderBean bean = new OrderBean(10, "修改10111");
-        dao.update(bean);
+        //        UserBean update = new UserBean(3, "修改的");
+        //        dao.update(update);
+        //OrderBean bean = new OrderBean(10, "修改10111");
+        //dao.update(bean);
+
+        try {
+            //getClass().getSuperclass()
+            Field mToken = getClass().getDeclaredField("mToken");
+            Object o = mToken.get(this);
+            if (o instanceof IBinder) {
+                System.out.println("获取成功");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //app信息
@@ -126,16 +139,37 @@ public class MainActivity extends AppCompatActivity {
         //}
     }
 
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        super.startActivityForResult(intent, requestCode, options);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     public void testPermission(View view) {
-        PermissionUtils.requestPermissionsResult(this, 10, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionUtils.OnPermissionListener() {
+        //PermissionUtils.requestPermissionsResult(this, 10, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionUtils.OnPermissionListener() {
+        //    @Override
+        //    public void onPermissionGranted() {
+        //        Log.i("ligen", "onPermissionGranted: 同意");
+        //    }
+        //
+        //    @Override
+        //    public void onPermissionDenied(boolean neverRequest) {
+        //        Log.i("ligen", "onPermissionGranted: 不同意" + neverRequest);
+        //    }
+        //});
+        PermissionUtils.askOverFlowWindow(this, new PermissionUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Log.i("ligen", "onPermissionGranted: 同意");
+
             }
 
             @Override
             public void onPermissionDenied(boolean neverRequest) {
-                Log.i("ligen", "onPermissionGranted: 不同意" + neverRequest);
+
             }
         });
     }

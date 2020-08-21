@@ -15,6 +15,7 @@ public class StartActivityDelegate implements InvocationHandler {
         if ("startActivity".equals(method.getName())) {
             System.out.println("拦截到启动activity");
         }
+        HookManger.getInstance().dispatchStartActMethod(method);
         return method.invoke(iActivityManager, args);
     }
 }

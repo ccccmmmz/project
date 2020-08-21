@@ -89,7 +89,7 @@ public class HookManger {
             Object proxy = Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[]{iActivityManagerIntercept}, new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
+                    dispatchStartActMethod(method);
                     System.out.println(" P hook到的启动方法 " + method.getName());
                     return method.invoke(iActivityManagerObject, args);
                 }
@@ -102,13 +102,16 @@ public class HookManger {
 
     }
 
-    private void dispatchStartActMethod(Method method) {
+    public void dispatchStartActMethod(Method method) {
+        System.out.println("拦截的方法" + method.getName());
         switch (method.getName()) {
             case "startActivity":
                 break;
             case "handleApplicationCrash":
                 break;
             case "reportKillProcessEvent":
+                break;
+            case "startActivityForResult":
                 break;
         }
     }
