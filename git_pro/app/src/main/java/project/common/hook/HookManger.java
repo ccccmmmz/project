@@ -5,10 +5,12 @@ import android.app.ActivityManager;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import com.google.gson.internal.UnsafeAllocator;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -34,6 +36,14 @@ public class HookManger {
     public void log(String info) {
         if (DEBUG) {
             System.out.println(info);
+        }
+    }
+
+    public void hookTypeValue() {
+        try {
+            Resources resources = UnsafeAllocator.create().newInstance(Resources.class);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

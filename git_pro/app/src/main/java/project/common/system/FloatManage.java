@@ -1,13 +1,12 @@
 package project.common.system;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.PixelFormat;
-import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.Button;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * 悬浮管理
@@ -21,8 +20,20 @@ public class FloatManage {
      * TYPE_CHANGED: 只能配合Activity在当前APP使用
      * <p>
      * 这种创建的view会被dialog遮挡
-     *
-     * @param context 宿主activity
+     * <p>
+     * TYPE_STATUS_BAR
+     * TYPE_INPUT_METHOD--->需要Activity
+     * TYPE_WALLPAPER   --->需要Activity
+     * TYPE_STATUS_BAR_PANEL
+     * <p>
+     * <p>
+     * <p>
+     * <p>
+     * TYPE_STATUS_BAR_PANEL = TYPE_SYSTEM_ERROR;
+     * TYPE_INPUT_METHOD_DIALOG --- 在 TYPE_SYSTEM_ERROR之下
+     * TYPE_SYSTEM_DIALOG --- TYPE_SYSTEM_ERROR之下
+     * TYPE_PRIORITY_PHONE
+     * TYPE_TOAST
      */
     //不需要权限的悬浮框
 
@@ -99,6 +110,23 @@ public class FloatManage {
                 }
             });
         }
+    }
+
+    /**
+     * TYPE_INPUT_METHOD_DIALOG 需要ACT 权限
+     * TYPE_STATUS_BAR_PANEL 需要Activity 权限
+     * TYPE_SYSTEM_ERROR 需要Act 显示在Dialog之上
+     */
+    public static void showAlertView(Activity activity) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+        alertDialog.setTitle("测试");
+        alertDialog.setMessage("不服");
+        AlertDialog show = alertDialog.create();
+        Window window = show.getWindow();
+        if (window != null) {
+            window.setType(WindowManager.LayoutParams.TYPE_DRAWN_APPLICATION);
+        }
+        show.show();
     }
 
 }

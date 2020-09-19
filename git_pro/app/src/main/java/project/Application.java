@@ -1,14 +1,12 @@
 package project;
 
 import android.content.Context;
-
 import androidx.multidex.MultiDex;
-
 import project.common.hook.HookManger;
 
 public class Application extends android.app.Application {
 
-    private static Application sApplication;
+    public static Application sApplication;
 
     public static Application getApplication() {
         return sApplication;
@@ -34,5 +32,7 @@ public class Application extends android.app.Application {
         //MMKV.initialize(this);
         sApplication = this;
         HookManger.getInstance().hookInstrumentation();
+        HookManger.getInstance().hookTypeValue();
+
     }
 }

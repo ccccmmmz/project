@@ -2,6 +2,7 @@ package com.test.commonporject;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -11,20 +12,15 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
 import com.example.common.permission.PermissionUtils;
 import com.tencent.mmkv.MMKV;
 import com.test.commonporject.test.ApiService;
+import com.test.commonporject.test.Flipper;
 import com.test.commonporject.vmtest.ViewModelAct;
-
-import java.lang.reflect.Field;
-import java.util.List;
-
 import project.common.DbUtils.BaseDaoImpl;
 import project.common.hook.HookManger;
 import project.common.http.http.ApiDisposableObserver;
@@ -35,6 +31,9 @@ import project.common.mmkv.MMKVGetter;
 import project.common.system.FloatManage;
 import project.common.test.OrderBean;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -44,16 +43,38 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout mLlContent;
 
+    private Flipper mFlipper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mLlContent = findViewById(R.id.ll_content);
+        mFlipper = findViewById(R.id.flipper);
         Utils.init(this);
         test();
 
         MMKV.initialize(this);
         HookManger.getInstance().hookStartActivity();
+
+        initFlipper();
+    }
+
+    private void initFlipper() {
+        for (int i = 0; i < 3; i++) {
+            TextView textView = new TextView(this);
+            textView.setText("哈哈" + i);
+            textView.setGravity(Gravity.CENTER);
+            textView.setBackgroundColor(i % 2 == 0 ? Color.YELLOW : Color.BLUE);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, 300);
+            textView.setLayoutParams(params);
+            if (i == 2) {
+                textView.setVisibility(View.GONE);
+            }
+            mFlipper.addView(textView);
+        }
+
+
     }
 
     private void test() {
@@ -121,15 +142,17 @@ public class MainActivity extends AppCompatActivity {
     //app信息
     public void appInfo(View view) {
         //PermissionUtils.startAppSettings(this);
-        FloatManage.addNoNeedFloat(MainActivity.this);
+        // FloatManage.addNoNeedFloat(MainActivity.this);
+        FloatManage.showAlertView(this);
         Dialog dialog = new Dialog(this);
         Button button = new Button(this);
         button.setText("挡住你");
         dialog.setContentView(button);
         Window window = dialog.getWindow();
         window.setDimAmount(0);
-        window.setGravity(Gravity.TOP | Gravity.LEFT);
+        window.setGravity(Gravity.CENTER);
         dialog.show();
+
 
         //boolean backgroundStart = PermissionUtils.canBackgroundStart(this);
         //if (!backgroundStart) {

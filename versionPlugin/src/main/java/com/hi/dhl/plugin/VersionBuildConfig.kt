@@ -33,13 +33,14 @@ object lib{
     var retrofit = "com.squareup.retrofit2:retrofit:2.4.0"
     var converter_gson = "com.squareup.retrofit2:converter-gson:2.4.0"
     var adapter_rxjava = "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
-    var glide = "com.github.bumptech.glide:glide:4.8.0"
-    var glide_compiler = "com.github.bumptech.glide:compiler:4.8.0"
+    var glide = "com.github.bumptech.glide:glide:4.9.0"
+    var glide_compiler = "com.github.bumptech.glide:compiler:4.9.0"
     var gson = "com.google.code.gson:gson:2.8.5"
 
     var material_dialogs_core = "com.afollestad.material-dialogs:core:0.9.4.5"
 
     var material_dialogs_commons = "com.afollestad.material-dialogs:commons:0.9.4.5"
+
     //recyclerview的databinding套装
     var bindingcollectionadapter = "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0"
     var bindingcollectionadapter_recyclerview = "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0";

@@ -52,6 +52,7 @@ public class ViewFlipperKit extends ViewFlipper {
 
     }
 
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         handleTouchEvent(ev);
