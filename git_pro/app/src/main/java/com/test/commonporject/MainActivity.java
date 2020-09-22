@@ -20,6 +20,7 @@ import com.example.common.permission.PermissionUtils;
 import com.tencent.mmkv.MMKV;
 import com.test.commonporject.test.ApiService;
 import com.test.commonporject.test.Flipper;
+import com.test.commonporject.test.FlipperCompat;
 import com.test.commonporject.vmtest.ViewModelAct;
 import project.common.DbUtils.BaseDaoImpl;
 import project.common.hook.HookManger;
@@ -43,21 +44,21 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout mLlContent;
 
-    private Flipper mFlipper;
+    //private FlipperCompat mFlipper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mLlContent = findViewById(R.id.ll_content);
-        mFlipper = findViewById(R.id.flipper);
+        //mLlContent = findViewById(R.id.ll_content);
+        //mFlipper = findViewById(R.id.flipper);
         Utils.init(this);
         test();
 
         MMKV.initialize(this);
         HookManger.getInstance().hookStartActivity();
 
-        initFlipper();
+        //initFlipper();
     }
 
     private void initFlipper() {
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             if (i == 2) {
                 textView.setVisibility(View.GONE);
             }
-            mFlipper.addView(textView);
+            //mFlipper.addView(textView);
         }
 
 

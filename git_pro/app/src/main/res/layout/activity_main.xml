@@ -20,11 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="300dp">
 
-            <com.test.commonporject.test.Flipper
-                android:id="@+id/flipper"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="450dp" />
+<!--            <com.test.commonporject.test.FlipperCompat-->
+<!--                android:id="@+id/flipper"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="450dp" />-->
         </FrameLayout>
 
 

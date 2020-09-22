@@ -79,6 +79,26 @@ public class Flipper extends LinearLayout {
         });
         mInAnimation.setFillAfter(true);
         mOutAnimation = AnimationUtils.loadAnimation(mContext, R.anim.anim_out_vertical);
+        mOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                View childAt = getChildAt(0);
+                LinearLayout.LayoutParams layoutParams = (LayoutParams) childAt.getLayoutParams();
+
+                float translationY = childAt.getTranslationY();
+                System.out.println("ligen,y"+ layoutParams.toString());
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         mOutAnimation.setFillAfter(true);
         if (mAutoStart) {
             postDelayed(mNextRunnable, mInterval);
@@ -89,7 +109,7 @@ public class Flipper extends LinearLayout {
         @Override
         public void run() {
             showNext();
-            //postDelayed(mNextRunnable, mInterval);
+//            postDelayed(mNextRunnable, mInterval);
         }
     };
 
@@ -128,6 +148,7 @@ public class Flipper extends LinearLayout {
     void showOnly(int childIndex, boolean animate) {
         final int count = getChildCount();
         System.out.println("ligen,view count = " + count);
+
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
             if (i == childIndex) {
