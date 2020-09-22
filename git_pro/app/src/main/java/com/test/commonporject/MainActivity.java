@@ -3,6 +3,7 @@ package com.test.commonporject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -12,16 +13,19 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
 import com.example.common.permission.PermissionUtils;
 import com.tencent.mmkv.MMKV;
 import com.test.commonporject.test.ApiService;
-import com.test.commonporject.test.Flipper;
-import com.test.commonporject.test.FlipperCompat;
-import com.test.commonporject.vmtest.ViewModelAct;
+
+import java.lang.reflect.Field;
+import java.util.List;
+
 import project.common.DbUtils.BaseDaoImpl;
 import project.common.hook.HookManger;
 import project.common.http.http.ApiDisposableObserver;
@@ -31,9 +35,6 @@ import project.common.http.util.Utils;
 import project.common.mmkv.MMKVGetter;
 import project.common.system.FloatManage;
 import project.common.test.OrderBean;
-
-import java.lang.reflect.Field;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -213,7 +214,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void turnToKt(View view) {
-        Intent intent = new Intent(this, ViewModelAct.class);
+        //Intent intent = new Intent(this, ViewModelAct.class);
+        //startActivity(intent);
+        launchTest();
+    }
+
+    private void launchTest() {
+        Uri uri = Uri.parse("app://");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
 

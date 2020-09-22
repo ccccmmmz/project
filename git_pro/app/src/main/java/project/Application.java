@@ -1,7 +1,9 @@
 package project;
 
 import android.content.Context;
+
 import androidx.multidex.MultiDex;
+
 import project.common.hook.HookManger;
 
 public class Application extends android.app.Application {
@@ -32,7 +34,7 @@ public class Application extends android.app.Application {
         //MMKV.initialize(this);
         sApplication = this;
         HookManger.getInstance().hookInstrumentation();
-        HookManger.getInstance().hookTypeValue();
+        //HookManger.getInstance().hookTypeValue();
 
     }
 }

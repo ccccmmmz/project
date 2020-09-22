@@ -1,5 +1,6 @@
 package project.common.hook;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Instrumentation;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+
 import com.google.gson.internal.UnsafeAllocator;
 
 import java.lang.reflect.Field;
@@ -173,8 +175,10 @@ public class HookManger {
             Log.i(TAG, "------------hook  success------------->");
             Log.i(TAG, "");
 
+
             //由于这个方法是隐藏的，所以需要反射来调用，先找到这方法
             try {
+                @SuppressLint("DiscouragedPrivateApi")
                 Method execStartActivity = Instrumentation.class.getDeclaredMethod(
                         EXEC_START_ACTIVITY,
                         Context.class, IBinder.class, IBinder.class, Activity.class,
@@ -184,7 +188,9 @@ public class HookManger {
                         contextThread, token, target, intent, requestCode, options);
             } catch (Exception e) {
                 //如果你在这个类的成员变量Instrumentation的实例写错mInstrument,代码讲会执行到这里来
-                throw new RuntimeException("if Instrumentation paramerter is mInstrumentation, hook will fail");
+                e.printStackTrace();
+                return null;
+                //throw new RuntimeException("if Instrumentation paramerter is mInstrumentation, hook will fail");
             }
         }
 
