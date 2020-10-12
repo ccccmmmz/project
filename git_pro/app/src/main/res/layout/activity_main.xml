@@ -12,10 +12,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vp"
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content"></FrameLayout>
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -66,10 +68,10 @@
             android:text="获取上边儿mmkv存储的字符串test" />
 
         <TextView
-            android:onClick="turnToKt"
-            android:gravity="center"
-            android:text="跳转kotlin界面"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:onClick="turnToKt"
+            android:text="跳转kotlin界面" />
     </LinearLayout>
 </ScrollView>

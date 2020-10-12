@@ -6,6 +6,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.test.commonporject.test.FlipperCompat
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
         <com.test.commonporject.test.NoPaddingTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

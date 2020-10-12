@@ -36,7 +36,7 @@ android {
 //        Entry name * collided 这是 gradle 升级到高版本以后的 包的错误
         packagingOptions {
 //            exclude 'resources.arsc'
-            exclude '**.**'
+            //exclude '**.**'
 
 //            exclude 'res/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_0.xml'
 //            exclude 'res/color/switch_thumb_material_dark.xml'

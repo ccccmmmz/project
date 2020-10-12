@@ -3,6 +3,7 @@ package project.common.system;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -25,8 +26,10 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 public class SystemHelper{
 
@@ -226,12 +229,44 @@ public class SystemHelper{
         String processName = "";
         ActivityManager manager = (ActivityManager) context.getApplicationContext().getSystemService
                 (Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningAppProcessInfo process : manager.getRunningAppProcesses()) {
+        if (manager == null) {
+            return "";
+        }
+
+        List<ActivityManager.RunningAppProcessInfo> processes = manager.getRunningAppProcesses();
+        if (processes == null || processes.isEmpty()) {
+            return "";
+        }
+        for (ActivityManager.RunningAppProcessInfo process : processes) {
             if (process.pid == pid) {
                 processName = process.processName;
             }
         }
         return processName;
+    }
+
+    public static String getProcessNameFeature(Context context) {
+        Context applicationContext = context.getApplicationContext();
+        if (Build.VERSION_CODES.P <= Build.VERSION.SDK_INT) {
+            return Application.getProcessName();
+        } else {
+            String processName = null;
+            try {
+                final Method declaredMethod = Class.forName("android.app.ActivityThread", false, Application.class.getClassLoader())
+                        .getDeclaredMethod("currentProcessName", (Class<?>[]) new Class[0]);
+                declaredMethod.setAccessible(true);
+                final Object invoke = declaredMethod.invoke(null, new Object[0]);
+                if (invoke instanceof String) {
+                    processName = (String) invoke;
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+            if (!TextUtils.isEmpty(processName)) {
+                return processName;
+            }
+            return getCurrentProcessName(context);
+        }
     }
 
     //是否是主线程

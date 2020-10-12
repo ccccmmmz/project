@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AppOpsManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.test.commonporject.BuildConfig;
+import com.test.commonporject.R;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -346,17 +350,59 @@ public class PermissionUtils {
                 startAppSettings(context);
             }
         }
-        //Intent intent = new Intent();
-        //try {
-        //    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //    ComponentName componentName = null;
-        //    componentName = new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity");
-        //    intent.setComponent(componentName);
-        //    context.startActivity(intent);
-        //} catch (Exception e) {//抛出异常就直接打开设置页面
-        //    Log.i("ligen", "miuiPermission: " + e.getLocalizedMessage());
-        //}
+
     }
+
+    public static void vivoPermission(Context context) {
+        Intent localIntent;
+        try {
+            if (((Build.MODEL.contains("Y85")) && (!Build.MODEL.contains("Y85A"))) || (Build.MODEL.contains("vivo Y53L"))) {
+                localIntent = new Intent();
+                localIntent.setClassName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.PurviewTabActivity");
+                localIntent.putExtra("packagename", context.getPackageName());
+                localIntent.putExtra("tabId", "1");
+                context.startActivity(localIntent);
+            } else {
+                localIntent = new Intent();
+                localIntent.setClassName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.SoftPermissionDetailActivity");
+                localIntent.setAction("secure.intent.action.softPermissionDetail");
+                localIntent.putExtra("packagename", context.getPackageName());
+                context.startActivity(localIntent);
+            }
+        } catch (Exception e) {
+            // 否则跳转到应用详情
+            startAppSettings(context);
+        }
+    }
+
+    public static void oppoPermission(Context context) {
+        Intent intent = new Intent();
+        try {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("packageName", BuildConfig.APPLICATION_ID);
+            ComponentName comp = new ComponentName("com.color.safecenter", "com.color.safecenter.permission.PermissionManagerActivity");
+            intent.setComponent(comp);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            try {
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("pkg_name", context.getPackageName());
+                intent.putExtra("app_name", context.getString(R.string.app_name));
+                intent.putExtra("class_name", "com.welab.notificationdemo.MainActivity");
+                ComponentName comp = new ComponentName("com.coloros.notificationmanager", "com.coloros" +
+                        ".notificationmanager.AppDetailPreferenceActivity");
+                intent.setComponent(comp);
+                context.startActivity(intent);
+            } catch (Exception e1) {
+                // 否则跳转到应用详情
+                intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+                intent.setData(uri);
+                context.startActivity(intent);
+            }
+        }
+    }
+
 
     //回调
     public interface OnPermissionListener {
