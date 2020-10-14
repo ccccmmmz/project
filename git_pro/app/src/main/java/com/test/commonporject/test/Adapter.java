@@ -4,8 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.test.commonporject.R;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -31,7 +33,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 100;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

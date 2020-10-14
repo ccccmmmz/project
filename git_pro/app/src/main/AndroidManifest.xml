@@ -6,31 +6,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <!--全面屏适配-->
-    <!--        1 在manifest的Application节点下加入-->
-    <!--    <meta-data-->
-    <!--        android:name="android.max_aspect"-->
-    <!--        android:value="2.4" />-->
-    <!--    2-->
-    <!--    android:resizeableActivity="true"-->
-    <!--    3-->
-    <!--    android:maxAspectRatio="2.4"-->
-    <!--    4-->
-    <!--    升级targetSdkVersion为25以上版本-->
-    <!--适配华为（huawei）刘海屏-->
-    <!--    <meta-data-->
-    <!--        android:name="android.notch_support"-->
-    <!--        android:value="true"/>-->
-    <!--适配小米（xiaomi）刘海屏-->
-    <!--    <meta-data-->
-    <!--        android:name="notch.config"-->
-    <!--        android:value="portrait|landscape" />-->
     <application
         android:name="project.Application"
         android:allowBackup="true"
@@ -40,6 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:name">
+        <activity
+            android:name="project.common.behavoir.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/NoActionBar"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,8 +33,11 @@
         <activity android:name=".vmtest.ViewModelAct">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="app" />
             </intent-filter>
         </activity>

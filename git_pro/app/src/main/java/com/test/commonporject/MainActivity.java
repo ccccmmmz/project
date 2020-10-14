@@ -27,6 +27,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import project.common.DbUtils.BaseDaoImpl;
+import project.common.behavoir.ScrollingActivity;
 import project.common.hook.HookManger;
 import project.common.http.http.ApiDisposableObserver;
 import project.common.http.http.ResponseThrowable;
@@ -101,12 +102,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void insert(View view) {
-        for (int i = 0; i < 100; i++) {
-            OrderBean userBean = new OrderBean(i, "地" + i);
-            dao.insert(userBean);
-        }
 
+    public void insert(View view) {
+//        for (int i = 0; i < 100; i++) {
+//            OrderBean userBean = new OrderBean(i, "地" + i);
+//            dao.insert(userBean);
+//        }
+        goScroll();
+    }
+
+    private void goScroll() {
+        startActivity(new Intent(this, ScrollingActivity.class));
     }
 
     public void query(View view) {
