@@ -20,7 +20,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:name">
         <activity
-            android:name="project.common.behavoir.ScrollingActivity"
+            android:name="project.common.behavior.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/NoActionBar"></activity>
         <activity android:name=".MainActivity">

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="project.common.behavoir.ScrollingActivity">
+    tools:context="project.common.behavior.ScrollingActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,5 +23,5 @@
         android:text="Hello World"
         android:textColor="#ffffff"
         android:textSize="18sp"
-        app:layout_behavior="project.common.behavoir.VoiceTabBehavior" />
+        app:layout_behavior="project.common.behavior.VoiceTabBehavior" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

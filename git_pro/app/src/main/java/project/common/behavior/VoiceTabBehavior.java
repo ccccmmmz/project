@@ -1,4 +1,4 @@
-package project.common.behavoir;
+package project.common.behavior;
 
 
 import android.content.Context;

@@ -1,4 +1,4 @@
-package project.common.behavoir;
+package project.common.behavior;
 
 import android.os.Bundle;
 import android.widget.TextView;
