@@ -1,7 +1,7 @@
 package com.hi.dhl.plugin
 
 object VersionBuildConfig {
-    var KOTLIN_VERSION = "1.3.71"
+    var KOTLIN_VERSION = "1.4.10"
     var compileSdkVersion = 28
 }
 
