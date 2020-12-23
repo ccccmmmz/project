@@ -41,6 +41,10 @@
                 <data android:scheme="app" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".vmtest.InputAct"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
     </application>
 
 </manifest>

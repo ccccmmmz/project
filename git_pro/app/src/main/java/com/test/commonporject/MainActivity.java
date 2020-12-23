@@ -22,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.common.permission.PermissionUtils;
 import com.tencent.mmkv.MMKV;
 import com.test.commonporject.test.ApiService;
+import com.test.commonporject.vmtest.InputAct;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -220,9 +221,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void turnToKt(View view) {
-        //Intent intent = new Intent(this, ViewModelAct.class);
-        //startActivity(intent);
-        launchTest();
+        Intent intent = new Intent(this, InputAct.class);
+        startActivity(intent);
+//        launchTest();
     }
 
     private void launchTest() {
