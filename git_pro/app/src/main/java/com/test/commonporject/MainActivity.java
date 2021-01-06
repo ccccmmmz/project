@@ -1,11 +1,14 @@
 package com.test.commonporject;
 
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -22,6 +25,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.common.permission.PermissionUtils;
 import com.tencent.mmkv.MMKV;
 import com.test.commonporject.test.ApiService;
+import com.test.commonporject.test.BinderServer;
+import com.test.commonporject.test.IServer;
+import com.test.commonporject.test.TestStub;
 import com.test.commonporject.vmtest.InputAct;
 
 import java.lang.reflect.Field;
@@ -235,5 +241,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
+    }
+
+    public void testIbinder(View view) {
+        Intent intent = new Intent(this, BinderServer.class);
+        bindService(intent, new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                IServer iServer = TestStub.asInterface(service);
+                iServer.test("哈哈");
+                try {
+                    service.linkToDeath(new IBinder.DeathRecipient() {
+                        @Override
+                        public void binderDied() {
+                            Log.i(TAG, "binderDied: ");
+                        }
+                    }, 0);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        }, BIND_AUTO_CREATE);
     }
 }

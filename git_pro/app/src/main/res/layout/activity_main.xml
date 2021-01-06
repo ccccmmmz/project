@@ -73,5 +73,12 @@
             android:gravity="center"
             android:onClick="turnToKt"
             android:text="跳转kotlin界面" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:onClick="testIbinder"
+            android:text="iBinder测试" />
     </LinearLayout>
 </ScrollView>

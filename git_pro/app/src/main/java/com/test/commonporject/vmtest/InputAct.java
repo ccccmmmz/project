@@ -30,7 +30,12 @@ public class InputAct extends BaseVmActivity<TestViewModel> {
         mViewDataBinding.setLifecycleOwner(this);
         mEditView = mViewDataBinding.getRoot().findViewById(R.id.edit);
 
-        SoftProvider softProvider = new SoftProvider(this, mViewDataBinding.getRoot());
+        SoftProvider softProvider = new SoftProvider(this, mViewDataBinding.getRoot(), new SoftProvider.SoftProviderListener() {
+            @Override
+            public void SoftStateChange(int height) {
+
+            }
+        });
     }
 
     @Override
