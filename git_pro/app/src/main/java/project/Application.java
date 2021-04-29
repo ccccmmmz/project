@@ -5,6 +5,9 @@ import android.util.Log;
 
 import androidx.multidex.MultiDex;
 
+import com.tencent.mmkv.MMKV;
+
+import project.common.handler.HandlerHelp;
 import project.common.hook.HookManger;
 import project.common.system.SystemHelper;
 
@@ -42,9 +45,16 @@ public class Application extends android.app.Application {
 
         //测试进程名
         testProgressName();
+        startStrickMode();
+        HandlerHelp.addHanlerIdle();
+        MMKV.initialize(this);
     }
 
     private void testProgressName() {
         Log.d(TAG, "testProgressName: " + SystemHelper.getProcessNameFeature(this));
+    }
+
+    private void startStrickMode() {
+        //StrickModeKit.initStrict();
     }
 }

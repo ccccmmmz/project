@@ -1,8 +1,8 @@
 package project.common.http.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
-
 
 import com.test.commonporject.BuildConfig;
 
@@ -28,6 +28,8 @@ import project.common.http.http.interceptor.logging.LoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+@SuppressLint("StaticFieldLeak")
 
 public class ApiKit {
     //超时时间
@@ -138,6 +140,6 @@ public class ApiKit {
     }
 
     private static class SingletonHolder {
-        private static ApiKit INSTANCE = new ApiKit();
+        private static final ApiKit INSTANCE = new ApiKit();
     }
 }
