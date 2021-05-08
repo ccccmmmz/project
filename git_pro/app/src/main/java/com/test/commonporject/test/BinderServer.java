@@ -16,7 +16,7 @@ public class BinderServer extends Service {
         return mRemote;
     }
 
-    private TestStub mRemote = new TestStub() {
+    private final TestStub mRemote = new TestStub() {
         @Override
         public void test(String content) {
             Log.i(TAG, "test: " + content);
